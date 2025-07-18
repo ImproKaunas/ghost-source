@@ -290,7 +290,7 @@ module.exports = {
       type: 'text',
       maxlength: 65535,
       nullable: true,
-      validations: { isLength: { max: 250 } },
+      validations: { isLength: { max: 500 } },
     },
     website: {
       type: 'string',
