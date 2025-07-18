@@ -96,19 +96,19 @@ function createApiInstance(config) {
         const siteTitle = settingsCache.get('title');
         switch (type) {
           case 'subscribe':
-            return `📫 ${t(`Confirm your subscription to {siteTitle}`, { siteTitle, interpolation: { escapeValue: false } })}`;
+            return t(`Confirm your subscription to {siteTitle}`, { siteTitle, interpolation: { escapeValue: false } });
           case 'signup':
-            return `🙌 ${t(`Complete your sign up to {siteTitle}!`, { siteTitle, interpolation: { escapeValue: false } })}`;
+            return t(`Complete your sign up to {siteTitle}!`, { siteTitle, interpolation: { escapeValue: false } });
           case 'signup-paid':
-            return `🙌 ${t(`Thank you for signing up to {siteTitle}!`, { siteTitle, interpolation: { escapeValue: false } })}`;
+            return t(`Thank you for signing up to {siteTitle}!`, { siteTitle, interpolation: { escapeValue: false } });
           case 'updateEmail':
-            return `📫 ${t(`Confirm your email update for {siteTitle}!`, { siteTitle, interpolation: { escapeValue: false } })}`;
+            return t(`Confirm your email update for {siteTitle}!`, { siteTitle, interpolation: { escapeValue: false } });
           case 'signin':
           default:
             if (otc) {
-              return `🔑 ${t('Sign in to {siteTitle} with code {otc}', { siteTitle, otc, interpolation: { escapeValue: false } })}`;
+              return t('Sign in to {siteTitle} with code {otc}', { siteTitle, otc, interpolation: { escapeValue: false } });
             } else {
-              return `🔑 ${t(`Secure sign in link for {siteTitle}`, { siteTitle, interpolation: { escapeValue: false } })}`;
+              return t(`Secure sign in link for {siteTitle}`, { siteTitle, interpolation: { escapeValue: false } });
             }
         }
       },
