@@ -51,7 +51,7 @@ test.describe('User profile', async () => {
         await expect(modal).toContainText('Location is too long');
 
         // Test bio validation
-        await modal.getByLabel('Bio').fill(new Array(255).join('a'));
+        await modal.getByLabel('Bio').fill(new Array(505).join('a'));
         await modal.getByRole('button', {name: 'Save'}).click();
         await expect(modal).toContainText('Bio is too long');
     });
