@@ -2,6 +2,7 @@
   "editor.quickSuggestions": {
     "strings": true
   },
+  "editor.formatOnSave": false,
   "eslint.workingDirectories": [
     {
       "pattern": "./apps/*/"
