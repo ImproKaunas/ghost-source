@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>
         {{#if error}}
-            Unsubscribe Failed
+            Nepavyko atsisakyti prenumeratos
         {{else}}
-            Successfully Unsubscribed
+            Sėkmingai atsisakyta prenumeratos
         {{/if}}
     </title>
     <link rel="stylesheet" href="{{asset "public/ghost.css" hasMinFile="true"}}" />
@@ -24,26 +24,26 @@
                         {{/if}}
                         <section class="gh-flow-content unsubscribe">
                             {{#if error}}
-                                <h1>Unsubscribe failed.</h1>
+                                <h1>Nepavyko atsisakyti prenumeratos.</h1>
                                 <p>{{error}}</p>
                             {{else if member}}
-                                <h1>Successfully unsubscribed.</h1>
+                                <h1>Sėkmingai atsisakyta prenumeratos.</h1>
                                 <p>
                                     <span class="gh-flow-em">{{member.email}}</span> will no longer receive this newsletter.
                                     {{#match member.status "!=" "free"}}
-                                        This will not cancel your paid subscription{{#if @site.title}} to {{@site.title}}{{/if}}.
+                                        Tai neatšauks mokamų paslaugų {{#if @site.title}}iš {{@site.title}}{{/if}}.
                                     {{/match}}
                                 </p>
                             {{/if}}
                         </section>
                         <div class="unsubscribe-footer">
                             {{#unless error}}
-                                <p>Didn't mean to do this? Manage your account <a href="{{@site.url}}/#/portal/account">here</a>.</p>
+                                <p>Nenorėjai to padaryti? Tvarkyk paskyrus nustatymus <a href="{{@site.url}}/#/portal/account">čia</a>.</p>
                             {{/unless}}
                             {{#if @site.title}}
                                 <a href="{{@site.url}}">{{@site.title}}</a>
                             {{else}}
-                                <a href="{{@site.url}}">Visit site</a>
+                                <a href="{{@site.url}}">Atverti tinklalapį</a>
                             {{/if}}
                         </div>
                     </div>
