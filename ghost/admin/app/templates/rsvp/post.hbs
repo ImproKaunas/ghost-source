@@ -1,0 +1,49 @@
+<div class="flex flex-row">
+
+  <section class="gh-canvas">
+    <GhCanvasHeader class="gh-canvas-header sticky gh-rsvp-header">
+      <div class="flex flex-column">
+
+        <div class="gh-canvas-breadcrumb">
+          <LinkTo @route="rsvp.posts">
+            Events
+          </LinkTo>
+          {{svg-jar "arrow-right-small"}} Event
+        </div>
+
+        <h2 class="gh-canvas-title" data-test-screen-title>
+          {{ this.model.post.title }}
+        </h2>
+      </div>
+
+      <section class="view-actions">
+        <div class="view-actions-bottom-row">
+          <button title="Settings" class="gh-btn gh-btn-icon icon-only gh-btn-action-icon" {{on "click"
+            this.toggleSettingsMenu}}>{{#if this.showSettingsMenu}}
+              <span class="settings-menu-open">{{svg-jar "sidemenu-open"}}</span>
+            {{else}}
+              <span>{{svg-jar "sidemenu"}}</span>
+            {{/if}}
+          </button>
+        </div>
+      </section>
+
+    </GhCanvasHeader>
+    <section class="view-container {{if (not this.model.members.length) " members-list-container-stretch"}}">
+      {{#if this.model.members.length}}
+        <Rsvp::Members::List @members={{this.model.members}} />
+      {{else}}
+        <div class="gh-members-empty" data-test-no-matching-members>
+          {{svg-jar "members-placeholder" class="gh-members-placeholder"}}
+          <h4>No attendees yet</h4>
+        </div>
+      {{/if}}
+    </section>
+
+    {{outlet}}
+  </section>
+  {{#if this.showSettingsMenu}}
+    <Rsvp::PostSettingsMenu @post={{this.model.post}} @settings={{this.model.post.frontmatter.rsvp}}
+      @saveTask={{this.saveFrontmatterTask}} />
+  {{/if}}
+</div>

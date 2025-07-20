@@ -1,0 +1,22 @@
+<section class="gh-canvas gh-canvas-sticky">
+    <GhCanvasHeader class="gh-canvas-header sticky break tablet post-header">
+        <GhCustomViewTitle @title="Events" />
+
+        <section class="view-actions">
+            <div class="view-actions-top-row">
+
+            </div>
+        </section>
+    </GhCanvasHeader>
+
+    <section class="view-container content-list">
+        <Rsvp::Posts::List @model={{@model}} @list={{this.selectionList}}>
+            <li class="no-posts-box" data-test-no-posts-box>
+                <div class="no-posts">
+                    <h4>No events found.</h4>
+                </div>
+            </li>
+        </Rsvp::Posts::List>
+    </section>
+    {{outlet}}
+</section>

@@ -66,6 +66,9 @@ Router.map(function () {
         this.route('activitypub-x', {path: '/*sub'});
     });
 
+    this.route('rsvp.post', {path: '/rsvp/:id'});
+    this.route('rsvp.posts', {path: '/rsvp'});
+
     this.route('explore', function () {
         // actual Ember route, not rendered in iframe
         this.route('connect');
