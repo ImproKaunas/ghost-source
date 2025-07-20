@@ -13,6 +13,7 @@
     },
     "apps": {
         "internal": [
+            "app-server",
             "private-blogging",
             "amp"
         ]
