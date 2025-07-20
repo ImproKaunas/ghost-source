@@ -1,0 +1,33 @@
+<div class="settings-menu-container">
+    <div id="entry-controls">
+        <div class="settings-menu settings-menu-pane settings-menu-pane-main">
+            <div class="settings-menu-header">
+                <h4>Event settings</h4>
+            </div>
+            <div class="settings-menu-content">
+                <form aria-label="Event settings">
+                    <section class="gh-post-settings">
+                        <p></p>
+                        <div class="form-group">
+                            <label for="capacity">Maximum attendees</label>
+                            <GhTextInput @class="post-setting-rsvp-capacity gh-input-x" @type="number" @id="capacity"
+                                @name="post-setting-rsvp-capacity" @value={{settings.capacity}} {{on "input"
+                                setCapacity}} placeholder="∞" @stopEnterKeyDownPropagation={{true}} />
+                        </div>
+                        <div class="form-group">
+                            <label for="label">RSVP label</label>
+                            <GhTextInput @class="post-setting-rsvp-label gh-input-x" @id="label"
+                                @name="post-setting-rsvp-label" @value={{settings.label}}
+                                placeholder="rsvp:{{post.slug}}" {{on "input" setLabel}}
+                                @stopEnterKeyDownPropagation={{true}} />
+                        </div>
+                    </section>
+                </form>
+                <section class="gh-post-settings">
+                    <GhTaskButton @class="gh-btn gh-btn-primary gh-btn-icon" @type="button" @task={{this.saveTask}}
+                        @data-test-button="save" />
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

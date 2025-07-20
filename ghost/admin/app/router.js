@@ -41,6 +41,9 @@ Router.map(function () {
     this.route('tag.new', {path: '/tags/new'});
     this.route('tag', {path: '/tags/:tag_slug'});
 
+    this.route('rsvp.post', {path: '/rsvp/:id'});
+    this.route('rsvp.posts', {path: '/rsvp'});
+
     this.route('explore', function () {
         // actual Ember route, not rendered in iframe
         this.route('connect');

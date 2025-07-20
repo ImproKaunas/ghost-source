@@ -1,0 +1,15 @@
+<div class="gh-list-scrolling" data-test-table="members">
+    <table class="gh-list">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Last active</th>
+            </tr>
+        </thead>
+        <VerticalCollection @tagName="tbody" @items={{@members}} @key="id" @containerSelector=".gh-list-scrolling"
+            @estimateHeight={{75}} @staticHeight={{true}} @bufferSize={{5}} @renderAll={{false}} as |member|>
+            <Rsvp::Members::ListItem @member={{member}} data-test-member={{member.id}} />
+        </VerticalCollection>
+    </table>
+</div>

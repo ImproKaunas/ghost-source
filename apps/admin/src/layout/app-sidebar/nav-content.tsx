@@ -162,6 +162,16 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
                         </NavMenuItem>
                     )}
 
+                    <NavMenuItem>
+                        <NavMenuItem.Link
+                            to="rsvp"
+                            activeOnSubpath
+                        >
+                            <LucideIcon.ThumbsUp />
+                            <NavMenuItem.Label>Events</NavMenuItem.Label>
+                        </NavMenuItem.Link>
+                    </NavMenuItem>
+
                     {showMembers && (
                         <>
                             {hasMemberViews ? (
