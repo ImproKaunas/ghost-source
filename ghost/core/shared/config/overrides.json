@@ -12,10 +12,7 @@
     "publicFilePath": "core/frontend/public"
   },
   "apps": {
-    "internal": [
-            "app-server",
-            "private-blogging"
-        ]
+    "internal": ["rsvp", "app-server", "private-blogging"]
   },
   "slugs": {
     "protected": ["ghost", "rss", "amp"]

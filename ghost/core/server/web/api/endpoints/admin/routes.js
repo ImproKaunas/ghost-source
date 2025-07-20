@@ -47,6 +47,8 @@ module.exports = function apiRoutes() {
   router.delete('/posts/:id', mw.authAdminApi, http(api.posts.destroy));
   router.post('/posts/:id/copy', mw.authAdminApi, http(api.posts.copy));
 
+  router.put('/frontmatter/:id', mw.authAdminApi, http(api.frontmatter.edit));
+
   router.get('/mentions', mw.authAdminApi, http(api.mentions.browse));
 
   // Comments - browseAll must come before :id routes

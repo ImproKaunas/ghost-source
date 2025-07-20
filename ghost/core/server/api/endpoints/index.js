@@ -284,6 +284,10 @@ module.exports = {
     return apiFramework.pipeline(require('./search-index'), localUtils);
   },
 
+  get frontmatter() {
+    return apiFramework.pipeline(require('./frontmatter'), localUtils);
+  },
+
   /**
    * Content API Controllers
    *
