@@ -1,0 +1,63 @@
+.kg-cta-card {
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+    filter: blur(2px);
+}
+
+.rsvp-loading {
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
+.rsvp-error {
+    pointer-events: none !important;
+    user-select: none !important;
+    filter: blur(2px) !important;
+}
+
+.kg-cta-card.rsvp-enabled {
+    opacity: 1;
+    pointer-events: auto;
+    user-select: auto;
+    filter: none;
+}
+
+.rsvp-status-true {
+    box-shadow: 0 0 3px 1px yellowgreen, 0 0 8px 2px yellowgreen;
+}
+
+.rsvp-status-true .kg-cta-sponsor-label::after {
+    content: '// REGISTRACIJA AKTYVI' !important;
+    text-align: right;
+}
+
+.rsvp-status-true .kg-cta-button.rsvp-action-link {
+    opacity: 0.3;
+    background-color: rgb(135, 0, 0) !important;
+}
+
+.rsvp-status-true .kg-cta-button.rsvp-action-link:hover {
+    opacity: 1;
+    background-color: rgb(150, 0, 0) !important;
+    transition: opacity 2s ease-in;
+}
+
+.rsvp-status-false .kg-cta-sponsor-label::after {
+    content: '// RIBOTAS VIETŲ KIEKIS' !important;
+    text-align: right;
+    color: color-mix(in srgb, currentColor 45%, transparent)
+}
+
+.rsvp-status-false.rsvp-event-full .kg-cta-sponsor-label::after {
+    content: '// VIETŲ NEBĖRA' !important;
+    text-align: right;
+    color: rgb(150, 0, 0);
+}
+
+.rsvp-status-false.rsvp-event-full .kg-cta-button.rsvp-action-link {
+    opacity: 0.3;
+    pointer-events: none !important;
+    user-select: none !important;
+    text-decoration: line-through;
+}
