@@ -43,7 +43,7 @@
     transition: opacity 2s ease-in;
 }
 
-.rsvp-status-false .kg-cta-sponsor-label::after {
+.rsvp-status-false.rsvp-event-limited .kg-cta-sponsor-label::after {
     content: '// RIBOTAS VIETŲ KIEKIS' !important;
     text-align: right;
     color: color-mix(in srgb, currentColor 45%, transparent)
