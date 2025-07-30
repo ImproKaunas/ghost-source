@@ -231,3 +231,11 @@ yalc.lock
 .github/instructions/nx.instructions.md
 
 .nx/migrate-runs
+
+ghost/core/frontend/public/apps/portal
+ghost/core/frontend/public/apps/announcement-bar
+ghost/core/frontend/public/apps/signup-form
+ghost/core/frontend/public/apps/comments-ui
+ghost/core/frontend/public/apps/sodo-search
+
+outputs
