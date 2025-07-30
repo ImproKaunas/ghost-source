@@ -194,3 +194,12 @@ yalc.lock
 
 # e2e test suite
 /e2e/test-results
+
+ghost/core/core/frontend/public/apps/portal
+ghost/core/core/frontend/public/apps/announcement-bar
+ghost/core/core/frontend/public/apps/signup-form
+ghost/core/core/frontend/public/apps/comments-ui
+ghost/core/core/frontend/public/apps/admin-x-settings
+ghost/core/core/frontend/public/apps/sodo-search
+
+outputs
