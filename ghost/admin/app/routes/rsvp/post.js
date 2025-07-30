@@ -18,7 +18,8 @@ export default class RsvpPostRoute extends AuthenticatedRoute {
 
         const label = slugify((post.frontmatter.rsvp.label || `rsvp:${post.slug}`));
         const members = await this.store.query('member', {
-            filter: `label:'${label}'`
+            filter: `label:'${label}'`,
+            limit: 'all'
         });
 
         return { post, members }
