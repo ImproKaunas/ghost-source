@@ -213,3 +213,12 @@ yalc.lock
 .env.tinybird
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
+
+ghost/core/core/frontend/public/apps/portal
+ghost/core/core/frontend/public/apps/announcement-bar
+ghost/core/core/frontend/public/apps/signup-form
+ghost/core/core/frontend/public/apps/comments-ui
+ghost/core/core/frontend/public/apps/admin-x-settings
+ghost/core/core/frontend/public/apps/sodo-search
+
+outputs
