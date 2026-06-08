@@ -34,7 +34,7 @@ export const TipsAndDonationsSuccessStyle = `
 `;
 
 const SupportSuccess = () => {
-    const {doAction, brandColor, site} = useContext(AppContext);
+    const {doAction, brandColor, site, member} = useContext(AppContext);
     const successTitle = t('Thank you for your support');
     const successDescription = t('To continue to stay up to date, subscribe to {publication} below.', {publication: site?.title});
     const buttonLabel = t('Sign up');
@@ -47,6 +47,9 @@ const SupportSuccess = () => {
                 {site.icon ? <img className="gh-portal-signup-logo" src={site.icon} alt={site.title} /> : <div className="gh-tips-and-donations-icon-success"><ConfettiIcon /></div>}
                 <h1 className="gh-portal-main-title">{successTitle}</h1>
             </div>
+
+        {!member && (
+            <div>
             <p className="gh-portal-text-center">{successDescription}</p>
 
             <ActionButton
@@ -73,6 +76,8 @@ const SupportSuccess = () => {
                     <span>{t('Sign in')}</span>
                 </button>
             </div>
+            </div>
+        )}
         </div>
     );
 };
