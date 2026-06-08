@@ -325,11 +325,19 @@ class PaymentsService {
    * @returns {string}
    */
   getDonationPriceNickname() {
-    const nickname = t('Support {siteTitle}', {
-      siteTitle: this.settingsCache.get('title'),
-      interpolation: { escapeValue: false },
-    });
-    return nickname.substring(0, 250);
+    const phrases = [
+      'Tu – tikra dovana. Mums patinka dovanos!',
+      'Patirtis rodo, kad pavalgius kvatoti smagiau!',
+      'Pranašystės apie tavo dosnumą pildosi!',
+      'Kaip pasisekė, kad likimas tave čia atvedė!',
+      'Teatro rėmėjai ir kitame gyvenime improvizatoriais atgimsta!',
+      'Be tavęs mes repetuotume virtuvėje!',
+      'Tu esi mūsų mėgstamiausias milijonierius!',
+      'Kokį dosnų ir teisingą tave užaugino!',
+      'Tik faini žmonės moka už nurautas idėjas!',
+      'Tik herojai moka už absurdiškus dalykus!',
+    ];
+    return phrases[Math.floor(Math.random() * phrases.length)];
   }
 
   /**

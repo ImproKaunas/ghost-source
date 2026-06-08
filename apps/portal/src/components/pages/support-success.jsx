@@ -34,7 +34,7 @@ export const TipsAndDonationsSuccessStyle = `
 `;
 
 const SupportSuccess = () => {
-  const { doAction, brandColor, site } = useContext(AppContext);
+  const { doAction, brandColor, site, member } = useContext(AppContext);
   const successTitle = t('Thank you for your support');
   const successDescription = t(
     'To continue to stay up to date, subscribe to {publication} below.',
@@ -56,32 +56,36 @@ const SupportSuccess = () => {
         )}
         <h1 className="gh-portal-main-title">{successTitle}</h1>
       </div>
-      <p className="gh-portal-text-center">{successDescription}</p>
+      {!member && (
+        <div>
+          <p className="gh-portal-text-center">{successDescription}</p>
 
-      <ActionButton
-        style={{ width: '100%' }}
-        retry={false}
-        onClick={() => doAction('switchPage', { page: 'signup' })}
-        disabled={false}
-        brandColor={brandColor}
-        label={buttonLabel}
-        isRunning={false}
-        tabIndex={3}
-        classes={'sticky bottom'}
-      />
+          <ActionButton
+            style={{ width: '100%' }}
+            retry={false}
+            onClick={() => doAction('switchPage', { page: 'signup' })}
+            disabled={false}
+            brandColor={brandColor}
+            label={buttonLabel}
+            isRunning={false}
+            tabIndex={3}
+            classes={'sticky bottom'}
+          />
 
-      <div className="gh-portal-signup-message">
-        <div>{t('Already a member?')}</div>
-        <button
-          data-test-button="signin-switch"
-          data-testid="signin-switch"
-          className="gh-portal-btn gh-portal-btn-link"
-          style={{ color: brandColor }}
-          onClick={() => doAction('switchPage', { page: 'signin' })}
-        >
-          <span>{t('Sign in')}</span>
-        </button>
-      </div>
+          <div className="gh-portal-signup-message">
+            <div>{t('Already a member?')}</div>
+            <button
+              data-test-button="signin-switch"
+              data-testid="signin-switch"
+              className="gh-portal-btn gh-portal-btn-link"
+              style={{ color: brandColor }}
+              onClick={() => doAction('switchPage', { page: 'signin' })}
+            >
+              <span>{t('Sign in')}</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
