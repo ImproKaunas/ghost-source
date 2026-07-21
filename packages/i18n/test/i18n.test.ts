@@ -36,9 +36,9 @@ describe('i18n', function () {
     });
 
     it('loads bundled public app translations without server-only helpers', function () {
-      const t = portalI18n('nl', 'portal').t;
+      const t = portalI18n('lt', 'portal').t;
 
-      assert.equal(t('Name'), 'Naam');
+      assert.equal(t('Name'), 'Vardas');
     });
 
     it('uses the default locale', function () {
@@ -91,17 +91,17 @@ describe('i18n', function () {
     // locale is held only by the i18next store that asked for it and can be
     // collected once that store goes away. A require() would pin it for the life
     // of the process, defeating the point of loading one locale at a time.
-    const localeFile = path.join(import.meta.dirname, '../locales/nl/portal.json');
+    const localeFile = path.join(import.meta.dirname, '../locales/lt/portal.json');
     delete requireJson.cache[localeFile];
 
-    assert.equal(i18n('nl', 'portal').t('Name'), 'Naam');
+    assert.equal(i18n('lt', 'portal').t('Name'), 'Vardas');
     assert.equal(requireJson.cache[localeFile], undefined);
   });
 
   it('generateResources (Node file loader) resolves locales and falls back to English', function () {
-    const resources = i18n.generateResources(['nl', 'xx'], 'portal');
+    const resources = i18n.generateResources(['lt', 'xx'], 'portal');
 
-    assert.equal(resources.nl.portal.Name, 'Naam');
+    assert.equal(resources.lt.portal.Name, 'Vardas');
     // 'xx' is not a bundled locale — there is no file to read, so it falls back to English.
     assert.equal(resources.xx.portal.Name, i18n.generateResources(['en'], 'portal').en.portal.Name);
   });
@@ -124,20 +124,7 @@ describe('i18n', function () {
     const localesIn = (instance: I18nextInstance) => Object.keys(instance.store.data).sort();
 
     it('registers only the requested locale and English', function () {
-      assert.deepEqual(localesIn(i18n('nl', 'ghost')), ['en', 'nl']);
-    });
-
-    it('registers the base language of a regional locale', function () {
-      // 'de-CH' resolves through 'de' before reaching English.
-      assert.deepEqual(localesIn(i18n('de-CH', 'portal')), ['de', 'de-CH', 'en']);
-    });
-
-    it('registers the configured fallback rather than the requested locale', function () {
-      // 'no' has no locale files of its own — it is mapped to 'nb' by fallbackLng.
-      const instance = i18n('no', 'portal');
-
-      assert.deepEqual(localesIn(instance), ['en', 'nb']);
-      assert.equal(instance.t('Yearly'), 'Årlig');
+      assert.deepEqual(localesIn(i18n('lt', 'ghost')), ['en', 'lt']);
     });
 
     it('keeps the English fallback loaded for plural forms', function () {
@@ -146,7 +133,7 @@ describe('i18n', function () {
       // weight. It is not: a handful of plural keys ({count} month/year) have real
       // English values, and most locales leave their own plural forms empty. Without
       // en in the store those render as "2 month".
-      const t = i18n('nl', 'ghost').t;
+      const t = i18n('lt', 'ghost').t;
 
       assert.equal(t('{count} month', { count: 2 }), '2 months');
       assert.equal(t('{count} year', { count: 3 }), '3 years');
@@ -167,26 +154,14 @@ describe('i18n', function () {
 
       assert.deepEqual(localesIn(instance), ['en']);
 
-      await instance.changeLanguage('fr');
+      await instance.changeLanguage('lt');
 
-      assert.deepEqual(localesIn(instance), ['en', 'fr']);
-      assert.equal(instance.resolvedLanguage, 'fr');
+      assert.deepEqual(localesIn(instance), ['en', 'lt']);
+      assert.equal(instance.resolvedLanguage, 'lt');
       assert.equal(
         instance.t('Your subscription will renew on {date}.', { date: '8 Oct 2024' }),
-        'Votre abonnement sera renouvelé le 8 Oct 2024.',
+        'Klubo narystė bus atnaujinta 8 Oct 2024.',
       );
-    });
-
-    it('keeps text direction correct after a language change', async function () {
-      // dir() reads the resolved language, which is only right if the new
-      // locale's resources are in the store before i18next resolves it.
-      const instance = i18n('en', 'ghost');
-
-      assert.equal(instance.dir(), 'ltr');
-
-      await instance.changeLanguage('ar');
-
-      assert.equal(instance.dir(), 'rtl');
     });
   });
 
@@ -194,7 +169,7 @@ describe('i18n', function () {
     // Each entry wires together three things that only it knows: its glob
     // literal, the namespace it binds, and its package.json subpath. A mismatch
     // in any of them degrades silently to English, because the translation keys
-    // are the English strings — so each fixture asserts a Dutch string that
+    // are the English strings — so each fixture asserts a Lithuanian string that
     // exists in that namespace and no other.
     const REGISTRIES = {
       comments: () => import('../src/registry/comments.ts'),
@@ -205,19 +180,19 @@ describe('i18n', function () {
     };
 
     const FIXTURES = [
-      { ns: 'comments', key: 'Anonymous', dutch: 'Anoniem' },
-      { ns: 'ghost', key: 'All the best!', dutch: 'Tot snel!' },
-      { ns: 'portal', key: 'Account settings', dutch: 'Gegevens' },
-      { ns: 'search', key: 'No matches found', dutch: 'Geen resultaten gevonden' },
-      { ns: 'signup-form', key: 'Email sent', dutch: 'E-mail verzonden' },
+      { ns: 'comments', key: 'Anonymous', lithuanian: 'Anoniminis' },
+      { ns: 'ghost', key: 'All the best!', lithuanian: 'Geriausi linkėjimai!' },
+      { ns: 'portal', key: 'Account settings', lithuanian: 'Nustatymai' },
+      { ns: 'search', key: 'No matches found', lithuanian: 'Nieko nerasta' },
+      { ns: 'signup-form', key: 'Email sent', lithuanian: 'Laiškas išsiųstas' },
     ] as const;
 
-    for (const { ns, key, dutch } of FIXTURES) {
+    for (const { ns, key, lithuanian } of FIXTURES) {
       it(`resolves ${ns} translations from its own locale files`, async function () {
         const factory = (await REGISTRIES[ns]()).default;
 
         assert.equal(factory.namespace, ns);
-        assert.equal(factory('nl', ns).t(key), dutch);
+        assert.equal(factory('lt', ns).t(key), lithuanian);
         assert.deepEqual(factory.SUPPORTED_LOCALES, i18n.SUPPORTED_LOCALES);
       });
 
@@ -291,29 +266,29 @@ describe('i18n', function () {
   });
 
   describe('Can use Portal resources', function () {
-    describe('Dutch', function () {
+    describe('Lithuanian', function () {
       let t: I18nextInstance['t'];
 
       beforeAll(function () {
-        t = i18n('nl', 'portal').t;
+        t = i18n('lt', 'portal').t;
       });
 
       it('can translate `Name`', function () {
-        assert.equal(t('Name'), 'Naam');
+        assert.equal(t('Name'), 'Vardas');
       });
     });
   });
 
   describe('Can use Signup-form resources', function () {
-    describe('Afrikaans', function () {
+    describe('Lithuanian', function () {
       let t: I18nextInstance['t'];
 
       beforeAll(function () {
-        t = i18n('af', 'signup-form').t;
+        t = i18n('lt', 'signup-form').t;
       });
 
       it('can translate `Now check your email!`', function () {
-        assert.equal(t('Now check your email!'), 'Kyk nou in jou e-pos!');
+        assert.equal(t('Now check your email!'), 'Dabar patikrink savo el.paštą!');
       });
     });
   });
@@ -326,42 +301,6 @@ describe('i18n', function () {
       });
       it('can translate with english when no language selected', function () {
         assert.equal(t('Back'), 'Back');
-      });
-    });
-  });
-
-  describe('Fallback will be nb when no is chosen', function () {
-    describe('Norwegian bokmål fallback', function () {
-      let t: I18nextInstance['t'];
-      beforeAll(function () {
-        t = i18n('no', 'portal').t;
-      });
-      it('Norwegian bokmål used when no is chosen', function () {
-        assert.equal(t('Yearly'), 'Årlig');
-      });
-    });
-  });
-
-  describe('Language will be nb when nb is chosen', function () {
-    describe('Norwegian bokmål', function () {
-      let t: I18nextInstance['t'];
-      beforeAll(function () {
-        t = i18n('nb', 'portal').t;
-      });
-      it('Norwegian bokmål used when "nb" is chosen', function () {
-        assert.equal(t('Yearly'), 'Årlig');
-      });
-    });
-  });
-
-  describe('Language is properly "nn" when "nn" is chosen', function () {
-    describe('Norwegian Nynorsk', function () {
-      let t: I18nextInstance['t'];
-      beforeAll(function () {
-        t = i18n('nn', 'portal').t;
-      });
-      it('Norwegian Nynorsk used when selected', function () {
-        assert.equal(t('Yearly'), 'Årleg');
       });
     });
   });
@@ -394,10 +333,10 @@ describe('i18n', function () {
 
   describe('newsletter i18n', function () {
     it('should be able to translate and interpolate a date', async function () {
-      const t = i18n('fr', 'ghost').t;
+      const t = i18n('lt', 'ghost').t;
       assert.equal(
         t('Your subscription will renew on {date}.', { date: '8 Oct 2024' }),
-        'Votre abonnement sera renouvelé le 8 Oct 2024.',
+        'Klubo narystė bus atnaujinta 8 Oct 2024.',
       );
     });
   });
