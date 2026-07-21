@@ -7,10 +7,6 @@ const models = require('../../../../../core/server/models');
 describe('RSVP Routes', function () {
     let siteApp;
 
-    before(function () {
-        models.init();
-    });
-
     beforeEach(function () {
         siteApp = {
             get: sinon.spy(),

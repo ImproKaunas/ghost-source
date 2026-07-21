@@ -1,4 +1,3 @@
-// @ts-expect-error - semver subpath has no types
 import semverParse from 'semver/functions/parse';
 
 // Supported version formats:

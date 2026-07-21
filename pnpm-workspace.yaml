@@ -19,9 +19,9 @@ allowBuilds:
   msw: true
   nx: true
   protobufjs: true
-  re2: true
+  re2: false
   sharp: true
-  sqlite3: true
+  sqlite3: false
   ssh2: true
 
 catalog:

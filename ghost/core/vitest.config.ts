@@ -49,7 +49,9 @@ const sharedConfig = {
     // worker.terminate() and is unaffected; it's also faster here.
     pool: 'threads' as const,
     env: {
-        NODE_ENV: 'testing',
+        // Allow NODE_ENV=testing-mysql to run unit tests against MySQL on
+        // hosts where the sqlite3 native module cannot build.
+        NODE_ENV: process.env.NODE_ENV || 'testing',
         WEBHOOK_SECRET: 'TEST_STRIPE_WEBHOOK_SECRET'
     },
     setupFiles: ['./test/utils/vitest-setup.ts'],
