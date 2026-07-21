@@ -11,10 +11,6 @@ describe('RSVP Controllers', function () {
     let label;
     let feedbackAddStub;
 
-    before(function () {
-        models.init();
-    });
-
     beforeEach(function () {
         label = {id: 'label-1', toJSON: () => ({id: 'label-1', name: 'rsvp-my-event'})};
 
