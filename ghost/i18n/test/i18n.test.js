@@ -16,40 +16,46 @@ describe('i18n', function () {
     });
 
     it('is uses default export if available', async function () {
-        const translationFile = require(path.join(`../locales/`, 'nl', 'portal.json'));
+        const translationFile = require(path.join(`../locales/`, 'lt', 'portal.json'));
+        const originalName = translationFile.Name;
         translationFile.Name = undefined;
         translationFile.default = {
-            Name: 'Naam'
+            Name: 'Vardas (default)'
         };
 
-        const t = i18n('nl', 'portal').t;
-        assert.equal(t('Name'), 'Naam');
+        try {
+            const t = i18n('lt', 'portal').t;
+            assert.equal(t('Name'), 'Vardas (default)');
+        } finally {
+            translationFile.Name = originalName;
+            delete translationFile.default;
+        }
     });
 
     describe('Can use Portal resources', function () {
-        describe('Dutch', function () {
+        describe('Lithuanian', function () {
             let t;
 
             before(function () {
-                t = i18n('nl', 'portal').t;
+                t = i18n('lt', 'portal').t;
             });
 
             it('can translate `Name`', function () {
-                assert.equal(t('Name'), 'Naam');
+                assert.equal(t('Name'), 'Vardas');
             });
         });
     });
 
     describe('Can use Signup-form resources', function () {
-        describe('Afrikaans', function () {
+        describe('Lithuanian', function () {
             let t;
 
             before(function () {
-                t = i18n('af', 'signup-form').t;
+                t = i18n('lt', 'signup-form').t;
             });
 
             it('can translate `Now check your email!`', function () {
-                assert.equal(t('Now check your email!'), 'Kyk nou in jou e-pos!');
+                assert.equal(t('Now check your email!'), 'Dabar patikrink savo el.paštą!');
             });
         });
     });
@@ -66,38 +72,14 @@ describe('i18n', function () {
         });
     });
 
-    describe('Fallback will be nb when no is chosen', function () {
-        describe('Norwegian bokmål fallback', function () {
+    describe('Language will be lt when lt is chosen', function () {
+        describe('Lithuanian', function () {
             let t;
             before(function () {
-                t = i18n('no', 'portal').t;
+                t = i18n('lt', 'portal').t;
             });
-            it('Norwegian bokmål used when no is chosen', function () {
-                assert.equal(t('Yearly'), 'Årlig');
-            });
-        });
-    });
-
-    describe('Language will be nb when nb is chosen', function () {
-        describe('Norwegian bokmål', function () {
-            let t;
-            before(function () {
-                t = i18n('nb', 'portal').t;
-            });
-            it('Norwegian bokmål used when "nb" is chosen', function () {
-                assert.equal(t('Yearly'), 'Årlig');
-            });
-        });
-    });
-
-    describe('Language is properly "nn" when "nn" is chosen', function () {
-        describe('Norwegian Nynorsk', function () {
-            let t;
-            before(function () {
-                t = i18n('nn', 'portal').t;
-            });
-            it('Norwegian Nynorsk used when selected', function () {
-                assert.equal(t('Yearly'), 'Årleg');
+            it('Lithuanian used when "lt" is chosen', function () {
+                assert.equal(t('Yearly'), 'Metinė');
             });
         });
     });
@@ -127,8 +109,8 @@ describe('i18n', function () {
 
     describe('newsletter i18n', function () {
         it('should be able to translate and interpolate a date', async function () {
-            const t = i18n('fr', 'ghost').t;
-            assert.equal(t('Your subscription will renew on {date}.', {date: '8 Oct 2024'}), 'Votre abonnement sera renouvelé le 8 Oct 2024.');
+            const t = i18n('lt', 'ghost').t;
+            assert.equal(t('Your subscription will renew on {date}.', {date: '8 Oct 2024'}), 'Klubo narystė bus atnaujinta 8 Oct 2024.');
         });
     });
     describe('it gracefully falls back to en if a file is missing', function () {
