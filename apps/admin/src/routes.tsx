@@ -45,6 +45,8 @@ const EMBER_ROUTES: string[] = [
     "/members-activity",
     "/designsandbox",
     "/mentions",
+    "/rsvp",
+    "/rsvp/:id",
 ];
 
 const emberFallbackHandle = { allowInForceUpgrade: true } satisfies RouteHandle;
