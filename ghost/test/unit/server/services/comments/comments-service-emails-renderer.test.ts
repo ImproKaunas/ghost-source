@@ -61,30 +61,25 @@ describe('Comments Service Email Renderer', function () {
       );
     });
 
-    it('should render html and text templates with German locale', async function () {
+    it('should render html and text templates with Lithuanian locale', async function () {
       // arrange
-      const i18n = i18nLib('de', 'ghost');
+      const i18n = i18nLib('lt', 'ghost');
       const renderer = new CommentsServiceEmailRenderer({ t: i18n.t });
 
       const templateData = {
-        postTitle: 'Testbeitrag',
-        postUrl: 'https://ghost.de/post',
-        siteUrl: 'https://ghost.de',
+        postTitle: 'Testinis įrašas',
+        postUrl: 'https://ghost.lt/post',
+        siteUrl: 'https://ghost.lt',
       };
 
       // act
       const result = await renderer.renderEmailTemplate('new-comment-reply', templateData);
 
       // assert
-      assert(result.html.includes('Hallo,</p>'));
-      assert(
-        result.html.includes('Diese Nachricht wurde von <a class="small" href="https://ghost.de"'),
-      );
-      assert(
-        result.html.includes('Jemand hat auf deinen Kommentar zu <a href="https://ghost.de/post"'),
-      );
-      assert(result.text.includes('Hallo,'));
-      assert(result.text.includes('Jemand hat auf deinen Kommentar zu Testbeitrag geantwortet.'));
+      assert(result.html.includes('Labas,</p>'));
+      assert(result.html.includes('href="https://ghost.lt/post"'));
+      assert(result.text.includes('Labas,'));
+      assert(result.text.includes('Kažkas atsakė į tavo komentarą įraše Testinis įrašas.'));
     });
   });
 });

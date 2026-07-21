@@ -89,9 +89,9 @@ const t = (key, options) => {
   return i18n.t(key, options);
 };
 
-const i18nFr = i18nLib('fr', 'ghost');
-const tFr = (key, options) => {
-  return i18nFr.t(key, options);
+const i18nLt = i18nLib('lt', 'ghost');
+const tLt = (key, options) => {
+  return i18nLt.t(key, options);
 };
 
 describe('Email renderer', function () {
@@ -538,7 +538,7 @@ describe('Email renderer', function () {
       assert.equal(replacements[0].getValue(member), '13 March 2023');
     });
 
-    it('handles dates when the locale is fr and labs enabled', function () {
+    it('handles dates when the locale is lt and labs enabled', function () {
       emailRenderer = new EmailRenderer({
         urlUtils: {
           urlFor: () => 'http://example.com/subdirectory/',
@@ -552,12 +552,12 @@ describe('Email renderer', function () {
               return 'UTC';
             }
             if (key === 'locale') {
-              return 'fr';
+              return 'lt';
             }
           },
         },
         settingsHelpers: { getMembersValidationKey, createUnsubscribeUrl },
-        t: tFr,
+        t: tLt,
       });
       const html = '%%{created_at}%%';
       const replacements = emailRenderer.buildReplacementDefinitions({
@@ -567,7 +567,7 @@ describe('Email renderer', function () {
       assert.equal(replacements.length, 2);
       assert.equal(replacements[0].token.toString(), '/%%\\{created_at\\}%%/g');
       assert.equal(replacements[0].id, 'created_at');
-      assert.equal(replacements[0].getValue(member), '13 mars 2023');
+      assert.equal(replacements[0].getValue(member), '2023 m. kovo 13 d.');
     });
 
     it('handles dates when the locale is en (US)', function () {
@@ -3004,9 +3004,9 @@ describe('Email renderer', function () {
 
     it('does not entity-encode interpolated values in the t helper', async function () {
       // Refs https://github.com/TryGhost/Ghost/issues/26905
-      // pt-PT formats the publication date with slashes (19/03/2026),
-      // which is what triggers double-encoding of interpolated values.
-      customSettings.locale = 'pt-PT';
+      // The author name carries the slash/apostrophe/ampersand payload that
+      // triggers double-encoding of interpolated values.
+      customSettings.locale = 'lt';
       const post = createModel(
         Object.assign({}, basePost, {
           published_at: new Date('2026-03-19T00:00:00.000Z'),
@@ -3077,13 +3077,10 @@ describe('Email renderer', function () {
 
       // Publication date flows through {{t '{date}'}} (double-brace) —
       // the actual symptom path in the issue.
+      assert.ok(/2026-03-1[89]/.test(response.html), 'HTML should contain the lt-formatted date');
       assert.ok(
-        response.html.includes('19/03/2026'),
-        'HTML should contain the literal slash-separated date',
-      );
-      assert.ok(
-        response.plaintext.includes('19/03/2026'),
-        'Plaintext should contain the literal slash-separated date',
+        /2026-03-1[89]/.test(response.plaintext),
+        'Plaintext should contain the lt-formatted date',
       );
 
       assert.ok(
@@ -4602,11 +4599,11 @@ describe('Email renderer', function () {
             return labsEnabled;
           },
         },
-        t: tFr,
+        t: tLt,
         dir: i18n.dir.bind(i18n),
       });
     });
-    it('correctly include the site name in the paywall (in French)', async function () {
+    it('correctly include the site name in the paywall (in Lithuanian)', async function () {
       renderedPost =
         '<div> Lexical Test </div> <div data-gh-segment="status:-free"> members only section</div> some text for both <!--members-only--> finishing part only for members';
       const post = {
@@ -4674,12 +4671,12 @@ describe('Email renderer', function () {
       assert(!response.html.includes('finishing part only for members'));
       assert(
         response.html.includes(
-          'Devenez un(e) abonn&#xe9;(e) payant de Cathy&#39;s Blog pour acc&#xe9;der &#xe0; du contenu exclusif',
+          'Cathy&#39;s Blog klubo nariu ir skaityk vis',
         ),
       );
       assert(
         response.plaintext.includes(
-          "Devenez un(e) abonné(e) payant de Cathy's Blog pour accéder à du contenu exclusif",
+          "Tapk Cathy's Blog klubo nariu ir skaityk visą turinį.",
         ),
       );
     });

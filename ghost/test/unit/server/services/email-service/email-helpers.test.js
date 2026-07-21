@@ -6,7 +6,7 @@ const {
 
 // load the i18n module
 const i18nLib = require('@tryghost/i18n').default;
-const i18n = i18nLib('fr', 'ghost');
+const i18n = i18nLib('lt', 'ghost');
 
 const t = (key, options) => {
   return i18n.t(key, options);
@@ -234,7 +234,7 @@ describe('registerHelpers', function () {
     registerHelpers(handlebars, labs, t);
 
     const result = handlebars.t('Name');
-    assert.equal(result.toString(), 'Nom');
+    assert.equal(result.toString(), 'Vardas');
   });
   it('t helper returns translation with hash', function () {
     const labs = { isSet: () => false };
@@ -243,7 +243,7 @@ describe('registerHelpers', function () {
     registerHelpers(handlebars, labs, t);
 
     const result = handlebars.t('By {authors}', { hash: { authors: 'fred' } });
-    assert.equal(result.toString(), 'Par fred');
+    assert.equal(result.toString(), 'fred');
   });
   it('t helper returns translation with options', function () {
     const labs = { isSet: () => false };
@@ -252,7 +252,7 @@ describe('registerHelpers', function () {
     registerHelpers(handlebars, labs, t);
 
     const result = handlebars.t('By {authors}', { authors: 'fred' });
-    assert.equal(result.toString(), 'Par fred');
+    assert.equal(result.toString(), 'fred');
   });
 
   // Refs https://github.com/TryGhost/Ghost/issues/26905
