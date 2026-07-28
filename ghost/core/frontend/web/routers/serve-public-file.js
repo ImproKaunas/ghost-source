@@ -209,6 +209,19 @@ function servePublicFiles(siteApp) {
     ),
   );
 
+  // Admin toolbar, self-hosted instead of jsdelivr (local patch; the file
+  // is a copy of apps/admin-toolbar/umd/admin-toolbar.min.js — re-copy it
+  // when upstream bumps adminToolbar.version in shared/config/defaults.json)
+  siteApp.get(
+    '/public/admin-toolbar.min.js',
+    createPublicFileMiddleware(
+      'static',
+      'public/admin-toolbar.min.js',
+      'application/javascript',
+      config.get('caching:publicAssets:maxAge'),
+    ),
+  );
+
   // Comment counts
   siteApp.get(
     '/public/comment-counts.min.js',
