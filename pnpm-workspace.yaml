@@ -12,8 +12,11 @@ blockExoticSubdeps: true
 allowBuilds:
   '@swc/core': true
   core-js: true
-  cpu-features: true
-  dtrace-provider: true
+  # cpu-features, dtrace-provider, ssh2(-crypto): optional native accel /
+  # tracing modules; their node-gyp builds fail without python+toolchain
+  # (harmlessly, with pages of noise) and the JS fallbacks are used anyway.
+  cpu-features: false
+  dtrace-provider: false
   esbuild: true
   fsevents: true
   msw: true
@@ -22,7 +25,7 @@ allowBuilds:
   re2: false
   sharp: true
   sqlite3: false
-  ssh2: true
+  ssh2: false
 
 catalog:
   '@ebay/nice-modal-react': 1.2.13
