@@ -132,6 +132,9 @@ catalogs:
     '@types/sanitize-html':
       specifier: 2.16.1
       version: 2.16.1
+    '@types/semver':
+      specifier: ^7.7.1
+      version: 7.7.1
     '@types/validator':
       specifier: 13.15.10
       version: 13.15.10
@@ -1042,6 +1045,9 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 18.3.7(@types/react@18.3.29)
+      '@types/semver':
+        specifier: 'catalog:'
+        version: 7.7.1
       '@types/validator':
         specifier: 'catalog:'
         version: 13.15.10
@@ -8569,6 +8575,7 @@ packages:
 
   '@tryghost/admin-api-schema@4.7.4':
     resolution: {integrity: sha512-vSVVBTUOKLdsTwUkEXPyhi8yo/GC9EpStVbTk9YN1iC0cGDloFDQ3Kb3aXScLhxcLCMa8TOGBDS+o/kXON0b4A==}
+    deprecated: This package is now maintained as an internal Ghost workspace package. Existing versions remain available for older Ghost releases; direct use is unsupported.
 
   '@tryghost/api-framework@3.2.3':
     resolution: {integrity: sha512-esFUvEI5z3i6khBLePa/av5GddK16FbArZL9d2EM8CNuNTPHir3lql/y+QE37D+a6Czx73GmgL0C86H3efbt/A==}
@@ -8668,6 +8675,7 @@ packages:
 
   '@tryghost/html-to-mobiledoc@3.3.2':
     resolution: {integrity: sha512-fCf4aHPV7hmF0AugRMfADiFJRh2ZxlhaQsUQSm0iVV5Kof7PgRIt8V7AYphV++aVLm8sXCU8rQkcDr5VMm9T+Q==}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. Use @tryghost/kg-html-to-lexical instead.'
 
   '@tryghost/html-to-plaintext@1.0.10':
     resolution: {integrity: sha512-kMg2knP6r8NP980WkXq13CV1fUc7bnLoMJRprXHEIcpiuHh2wcT74qJvP76tnofJ7EP7G5gRga4aZ3WCG2i0jg==}
@@ -8701,6 +8709,7 @@ packages:
   '@tryghost/kg-default-atoms@5.2.2':
     resolution: {integrity: sha512-ZWNKaUjEyAcjyltL4k6vyBh3O2cmST15Bx7jRADeOBVQm5ScAgNyWI7sIaJvELhrb8X7mfp909pAcqH/ZGDauA==}
     engines: {node: ^22.13.1 || ^24.0.0}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. This package is unmaintained.'
 
   '@tryghost/kg-default-cards@10.3.2':
     resolution: {integrity: sha512-A9Jymh2VFtzqWb6/m8a6pHNLSflDwvVcX159v6vvbcwFV+/BhCHk138n9c/2bcMS8tUPCvHuI+LiFwuohtJaBQ==}
@@ -8726,10 +8735,12 @@ packages:
   '@tryghost/kg-mobiledoc-html-renderer@7.2.2':
     resolution: {integrity: sha512-616EF/4ODqlDxcYxpvqtm/y62RiP727kxcLLC/UtqE5KwwPTL1Dt870YfFSA4DqehDZE1/avB4VhLv6+kcUa9g==}
     engines: {node: ^22.13.1 || ^24.0.0}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. This package is unmaintained.'
 
   '@tryghost/kg-parser-plugins@4.3.2':
     resolution: {integrity: sha512-VWODmGYeriEPeAD0gvJsXmc7RtISoWh2L+eQVq0TjhFQkiNGlX7ocXbcDXEZkbqBwKcZUtDPOqcI6h+NQUPjPA==}
     engines: {node: ^22.13.1}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. This package is unmaintained.'
 
   '@tryghost/kg-unsplash-selector@0.4.2':
     resolution: {integrity: sha512-1m4NbxCi5VHN2d6JlxWXKj3gy/rRzFez5ZD9Y5RdOovZgQhLKvCz2PiEYwRqRpLgaINxSYH3MTF3Q24jWkGvJQ==}
@@ -8751,12 +8762,14 @@ packages:
 
   '@tryghost/members-csv@2.0.7':
     resolution: {integrity: sha512-RnpaY2jKXC2waJTH4tI34vW541YBoDu7rX3NPZeHIdzoRP1102NCrzhPrFB/edmcyJ9fMMj5XpcvoQWw7FR/5A==}
+    deprecated: This package is now maintained as an internal Ghost workspace package. Existing versions remain available for older Ghost releases; direct use is unsupported.
 
   '@tryghost/metrics@1.0.43':
     resolution: {integrity: sha512-zTpO/VWhhsDgT/NPeXTa2UNO6KRoMVroo5oHpvKCB29eSE2td6uSarxZCzoxZ9c6rgA2TW0tiGuNu7sB3bMY7g==}
 
   '@tryghost/mobiledoc-kit@0.12.4-ghost.1':
     resolution: {integrity: sha512-c4aheSWH2Y7x4uSkAx08gbtvuEgPGjlu6v+FeUdSJZ1blEd+knL3zTcUAfeSiM6rgLEHxlNWtt+KFwotdf6rTA==}
+    deprecated: 'Deprecated: Ghost has moved to the Lexical editor and no longer supports mobiledoc. See bustle/mobiledoc-kit for the upstream project.'
 
   '@tryghost/mongo-knex@0.9.5':
     resolution: {integrity: sha512-etO6Kz8a1dgMV6yapD2C2JsoeLrUjkIoIUdXrkV9ELHQsMjMhtI2SAUnMV9AcLhxv0P7h8UWWD2rlNBwo8JJig==}
@@ -9234,6 +9247,9 @@ packages:
 
   '@types/sanitize-html@2.16.1':
     resolution: {integrity: sha512-n9wjs8bCOTyN/ynwD8s/nTcTreIHB1vf31vhLMGqUPNHaweKC4/fAl4Dj+hUlCTKYgm4P3k83fmiFfzkZ6sgMA==}
+
+  '@types/semver@7.7.1':
+    resolution: {integrity: sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA==}
 
   '@types/send@0.17.6':
     resolution: {integrity: sha512-Uqt8rPBE8SY0RK8JB1EzVOIZ32uqy8HwdxCnoCOsYrvnswqmFZ/k+9Ikidlk/ImhsdvBsloHbAlewb2IEBV/Og==}
@@ -20956,6 +20972,7 @@ packages:
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
+    deprecated: unmaintained
     hasBin: true
     peerDependencies:
       typescript: ^5.0.0
@@ -29584,6 +29601,8 @@ snapshots:
     dependencies:
       htmlparser2: 10.1.0
 
+  '@types/semver@7.7.1': {}
+
   '@types/send@0.17.6':
     dependencies:
       '@types/mime': 1.3.5
@@ -30100,7 +30119,7 @@ snapshots:
       obug: 2.1.1
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.7(@opentelemetry/api@1.9.1)(@types/node@25.9.1)(@vitest/coverage-v8@4.1.7)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.14.6(@types/node@25.9.1)(typescript@5.9.3))(vite@7.3.2(@types/node@25.9.1)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.9.0))
+      vitest: 4.1.7(@opentelemetry/api@1.9.1)(@types/node@22.19.19)(@vitest/coverage-v8@4.1.7)(jsdom@29.1.1(@noble/hashes@1.8.0))(msw@2.14.6(@types/node@22.19.19)(typescript@5.9.3))(vite@7.3.2(@types/node@22.19.19)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.9.0))
 
   '@vitest/expect@3.2.4':
     dependencies:
