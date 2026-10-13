@@ -182,6 +182,15 @@ function NavContent({ ...props }: React.ComponentProps<typeof SidebarGroup>) {
             </NavMenuItem>
           )}
 
+          {showMembers && (
+            <NavMenuItem>
+              <NavMenuItem.Link to="rsvp" activeOnSubpath>
+                <LucideIcon.Ticket />
+                <NavMenuItem.Label>Events</NavMenuItem.Label>
+              </NavMenuItem.Link>
+            </NavMenuItem>
+          )}
+
           {showAutomations && automationsEnabled && (
             <NavMenuItem>
               <NavMenuItem.Link to="automations" activeOnSubpath>

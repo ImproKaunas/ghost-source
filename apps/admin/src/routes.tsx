@@ -29,6 +29,7 @@ import {
 } from './apps/api';
 import { lazyAutomationEditorScreen, lazyAutomationsScreen } from './automations/api';
 import { lazyCommentsScreen } from './comments/api';
+import { lazyRsvpEventDetailScreen, lazyRsvpEventsScreen } from './rsvp/api';
 import { lazyMigrateScreen } from './migrate/api';
 import { lazyMemberActivityScreen, membersRouteChildren } from './members/api';
 import { OnboardingRedirect, lazyOnboardingScreen } from './onboarding/api';
@@ -74,6 +75,17 @@ const appRoutes: RouteObject[] = [
     path: '/comments',
     handle: { requiresAccess: canManageMembers } satisfies AccessRouteHandle,
     lazy: lazyComponent(lazyCommentsScreen),
+  },
+  {
+    // RSVP events (local fork feature): posts tagged #rsvp with attendee rosters.
+    path: '/rsvp',
+    handle: { requiresAccess: canManageMembers } satisfies AccessRouteHandle,
+    lazy: lazyComponent(lazyRsvpEventsScreen),
+  },
+  {
+    path: '/rsvp/:postId',
+    handle: { requiresAccess: canManageMembers } satisfies AccessRouteHandle,
+    lazy: lazyComponent(lazyRsvpEventDetailScreen),
   },
   {
     path: '/automations',
