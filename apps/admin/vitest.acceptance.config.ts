@@ -162,7 +162,19 @@ export default defineConfig({
     browser: {
       enabled: true,
       headless: true,
-      provider: playwright(),
+      // Local dev-host escape hatch (fork): Playwright's downloaded Chromium
+      // is an FHS binary that cannot run on NixOS — CHROMIUM_BIN points the
+      // provider at a system chromium instead (devenv ships one at /bin).
+      provider: playwright(
+        process.env.CHROMIUM_BIN
+          ? {
+              launchOptions: {
+                executablePath: process.env.CHROMIUM_BIN,
+                args: ['--no-sandbox'],
+              },
+            }
+          : undefined,
+      ),
       commands: {
         failFrameOrigin,
         failModuleLoads,
