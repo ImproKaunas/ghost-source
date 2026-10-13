@@ -340,25 +340,20 @@ describe('PaymentsService', function () {
       i18n.changeLanguage('en');
     });
 
-    it('builds the nickname from the site title', function () {
+    // The fork replaces upstream's "Support {siteTitle}" nickname with a
+    // random phrase from the theatre's own list, so upstream's four
+    // title-interpolation tests don't apply.
+    it('returns one of the fork donation phrases, within Stripe limits', function () {
       const service = createService('My Site');
-      assert.equal(service.getDonationPriceNickname(), 'Support My Site');
-    });
-
-    it('localizes the prefix while keeping the site title interpolated', async function () {
-      await i18n.changeLanguage('fr');
-      const service = createService('Mon Site');
-      assert.equal(service.getDonationPriceNickname(), 'Soutenir Mon Site');
-    });
-
-    it('does not HTML-escape the site title', function () {
-      const service = createService('Tom & Jerry');
-      assert.equal(service.getDonationPriceNickname(), 'Support Tom & Jerry');
-    });
-
-    it('truncates the nickname to 250 characters', function () {
-      const service = createService('a'.repeat(300));
-      assert.equal(service.getDonationPriceNickname().length, 250);
+      const seen = new Set();
+      for (let i = 0; i < 50; i++) {
+        seen.add(service.getDonationPriceNickname());
+      }
+      for (const phrase of seen) {
+        assert.equal(typeof phrase, 'string');
+        assert.ok(phrase.length > 0 && phrase.length <= 250);
+      }
+      assert.ok(seen.size > 1, 'phrases are picked at random');
     });
   });
 });
