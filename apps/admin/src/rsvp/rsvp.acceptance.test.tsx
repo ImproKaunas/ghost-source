@@ -59,8 +59,11 @@ describe('RSVP events', () => {
     // Registrations are named `rsvp:<post-slug>`; the roster queries the slugified label.
     expect(members.lastRequest?.filter).toBe("label:'rsvp-improvizacijos-dirbtuves'");
 
-    // Settings form carries the stored capacity.
+    // The settings sidebar is toggleable (as in the editor) and carries the stored capacity.
+    await page.getByRole('button', { name: 'Event settings' }).click();
     await expect.element(page.getByLabelText('Maximum attendees')).toHaveValue(14);
+    await page.getByRole('button', { name: 'Event settings' }).click();
+    await expect.element(page.getByTestId('rsvp-event-settings')).not.toBeInTheDocument();
   });
 
   it('saves settings through the frontmatter endpoint', async () => {
@@ -70,6 +73,7 @@ describe('RSVP events', () => {
     const frontmatter = fakeAdminEndpoint('PUT', `/frontmatter/${event.id}/`, {});
     await renderAdminApp(`/rsvp/${event.id}`);
 
+    await page.getByRole('button', { name: 'Event settings' }).click();
     await page.getByLabelText('Maximum attendees').fill('20');
     await page.getByRole('button', { name: 'Save' }).click();
 
