@@ -34,7 +34,7 @@ allowBuilds:
   # upload (tools/scripts/upload-sentry-sourcemaps.ts) uses the one from its platform
   # optionalDependency.
   '@sentry/cli': false
-  'better-sqlite3@12.11.1': false
+  'better-sqlite3@12.11.1': true
   cpu-features: false
   'esbuild@0.25.12 || 0.28.2': true
   'fsevents@2.3.2 || 2.3.3': true
