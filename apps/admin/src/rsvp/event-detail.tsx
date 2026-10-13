@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AdminLink } from '@/shared/admin-link';
 import { Box, Container, Stack, Text } from '@tryghost/shade/primitives';
 import {
+  Avatar,
   Button,
   EmptyIndicator,
   Input,
@@ -23,6 +24,7 @@ import { useFetchApi } from '@tryghost/admin-x-framework/hooks';
 import { apiUrl } from '@tryghost/admin-x-framework/helpers';
 import { useBrowseMembers, type Member } from '@tryghost/admin-x-framework/api/members';
 import { useBrowsePosts, postsDataType } from '@tryghost/admin-x-framework/api/posts';
+import { memberAvatarProps } from '@/members/member-format';
 import { parseRsvpSettings, rsvpLabelSlug, type RsvpPost, type RsvpSettings } from './frontmatter';
 
 const lastSeen = (member: Member) =>
@@ -202,15 +204,26 @@ const EventDetail: React.FC = () => {
                       {members.map((member) => (
                         <TableRow key={member.id} data-testid="rsvp-member-row">
                           <TableCell>
-                            <AdminLink
-                              className="font-semibold hover:underline"
-                              to={`/members/${member.id}`}
-                            >
-                              {member.name || member.email}
-                            </AdminLink>
-                            {member.name ? (
-                              <div className="text-sm text-muted-foreground">{member.email}</div>
-                            ) : null}
+                            <div className="flex min-w-0 items-center gap-3">
+                              <Avatar
+                                className="size-8 min-w-8"
+                                {...memberAvatarProps(member)}
+                                src={member.avatar_image}
+                              />
+                              <div className="min-w-0">
+                                <AdminLink
+                                  className="font-semibold hover:underline"
+                                  to={`/members/${member.id}`}
+                                >
+                                  {member.name || member.email}
+                                </AdminLink>
+                                {member.name ? (
+                                  <div className="text-sm text-muted-foreground">
+                                    {member.email}
+                                  </div>
+                                ) : null}
+                              </div>
+                            </div>
                           </TableCell>
                           <TableCell className="max-w-96 truncate text-sm whitespace-pre-line">
                             {member.note}
