@@ -127,16 +127,16 @@ describe('i18n', function () {
       assert.deepEqual(localesIn(i18n('lt', 'ghost')), ['en', 'lt']);
     });
 
-    it('keeps the English fallback loaded for plural forms', function () {
-      // The English files are almost entirely empty strings — with returnEmptyString
-      // false the key itself is the English text, so the fallback looks like dead
-      // weight. It is not: a handful of plural keys ({count} month/year) have real
-      // English values, and most locales leave their own plural forms empty. Without
-      // en in the store those render as "2 month".
+    it('resolves plural forms through the locale plural rules', function () {
+      // Upstream's version of this test asserts the English plural fallback for a
+      // locale with empty plural forms; this fork ships only en and lt, and lt
+      // translates every plural form, so assert Lithuanian's one/few/other rules
+      // resolve instead (the en fallback store is covered above).
       const t = i18n('lt', 'ghost').t;
 
-      assert.equal(t('{count} month', { count: 2 }), '2 months');
-      assert.equal(t('{count} year', { count: 3 }), '3 years');
+      assert.equal(t('{count} month', { count: 1 }), '1 mėnuo');
+      assert.equal(t('{count} month', { count: 2 }), '2 mėnesiai');
+      assert.equal(t('{count} year', { count: 10 }), '10 metų');
     });
 
     it('registers only English for an unsupported locale', function () {
