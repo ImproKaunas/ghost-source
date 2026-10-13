@@ -1,4 +1,4 @@
-const should = require('should');
+const assert = require('node:assert/strict');
 const sinon = require('sinon');
 const registerRoutes = require('../../../../../core/frontend/apps/rsvp/routes');
 const service = require('../../../../../core/frontend/apps/rsvp/service');
@@ -23,9 +23,9 @@ describe('RSVP Routes', function () {
     it('registers GET, POST and DELETE handlers on /rsvp/:slug', function () {
         for (const method of ['get', 'post', 'delete']) {
             sinon.assert.calledOnce(siteApp[method]);
-            siteApp[method].firstCall.args[0].should.equal('/rsvp/:slug');
+            assert.equal(siteApp[method].firstCall.args[0], '/rsvp/:slug');
             // member session loader + member guard + post guard + controller
-            siteApp[method].firstCall.args.length.should.equal(5);
+            assert.equal(siteApp[method].firstCall.args.length, 5);
         }
     });
 
@@ -45,7 +45,7 @@ describe('RSVP Routes', function () {
             getValidateMember()({}, res, next);
 
             sinon.assert.calledOnceWithExactly(res.status, 401);
-            res.json.firstCall.args[0].error.should.equal('Unauthorized');
+            assert.equal(res.json.firstCall.args[0].error, 'Unauthorized');
             sinon.assert.notCalled(next);
         });
 
@@ -82,7 +82,7 @@ describe('RSVP Routes', function () {
             await getValidatePost()({params: {slug: 'nope'}}, res, next);
 
             sinon.assert.calledOnceWithExactly(res.status, 404);
-            res.json.firstCall.args[0].error.should.equal('Not found');
+            assert.equal(res.json.firstCall.args[0].error, 'Not found');
             sinon.assert.notCalled(next);
         });
 
@@ -104,7 +104,7 @@ describe('RSVP Routes', function () {
 
             await getValidatePost()(req, res, next);
 
-            req.post.should.equal(post);
+            assert.equal(req.post, post);
             sinon.assert.calledOnce(next);
             sinon.assert.notCalled(res.status);
         });

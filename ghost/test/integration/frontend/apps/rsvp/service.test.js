@@ -46,7 +46,7 @@ async function reloadMember(id) {
 }
 
 describe('RSVP Service', function () {
-    before(async function () {
+    beforeAll(async function () {
         await agentProvider.getAdminAPIAgent();
         await fixtureManager.init();
     });

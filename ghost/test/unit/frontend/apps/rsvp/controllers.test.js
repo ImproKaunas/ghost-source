@@ -1,4 +1,4 @@
-const should = require('should');
+const assert = require('node:assert/strict');
 const sinon = require('sinon');
 const service = require('../../../../../core/frontend/apps/rsvp/service');
 const controllers = require('../../../../../core/frontend/apps/rsvp/controllers');
@@ -53,7 +53,7 @@ describe('RSVP Controllers', function () {
 
             sinon.assert.calledOnce(res.json);
             const body = res.json.firstCall.args[0];
-            body.should.eql({
+            assert.deepEqual(body, {
                 event: {
                     id: 'post-1',
                     title: 'My Event',
@@ -70,7 +70,7 @@ describe('RSVP Controllers', function () {
 
             await controllers.getRsvp(req, res);
 
-            res.json.firstCall.args[0].rsvp.should.be.true();
+            assert.equal(res.json.firstCall.args[0].rsvp, true);
         });
 
         it('reports full capacity for limited events at capacity', async function () {
@@ -79,7 +79,7 @@ describe('RSVP Controllers', function () {
 
             await controllers.getRsvp(req, res);
 
-            res.json.firstCall.args[0].event.capacity.should.eql({isLimited: true, isFull: true});
+            assert.deepEqual(res.json.firstCall.args[0].event.capacity, {isLimited: true, isFull: true});
         });
 
         it('reports not full for limited events under capacity', async function () {
@@ -88,7 +88,7 @@ describe('RSVP Controllers', function () {
 
             await controllers.getRsvp(req, res);
 
-            res.json.firstCall.args[0].event.capacity.should.eql({isLimited: true, isFull: false});
+            assert.deepEqual(res.json.firstCall.args[0].event.capacity, {isLimited: true, isFull: false});
         });
     });
 
@@ -98,12 +98,12 @@ describe('RSVP Controllers', function () {
 
             sinon.assert.calledOnceWithExactly(service.addLabel, req.member, label);
             sinon.assert.calledOnce(feedbackAddStub);
-            feedbackAddStub.firstCall.args[0].should.match({
+            sinon.assert.match(feedbackAddStub.firstCall.args[0], {
                 member_id: 'member-1',
                 post_id: 'post-1',
                 score: constants.FEEDBACK_SCORE.RSVP_ADDED
             });
-            res.json.firstCall.args[0].rsvp.should.be.true();
+            assert.equal(res.json.firstCall.args[0].rsvp, true);
         });
 
         it('is idempotent when member already has an rsvp', async function () {
@@ -113,7 +113,7 @@ describe('RSVP Controllers', function () {
 
             sinon.assert.notCalled(service.addLabel);
             sinon.assert.notCalled(feedbackAddStub);
-            res.json.firstCall.args[0].rsvp.should.be.true();
+            assert.equal(res.json.firstCall.args[0].rsvp, true);
         });
 
         it('rejects with 400 when the event is full', async function () {
@@ -124,7 +124,7 @@ describe('RSVP Controllers', function () {
 
             sinon.assert.calledOnceWithExactly(res.status, 400);
             sinon.assert.notCalled(service.addLabel);
-            res.json.firstCall.args[0].error.should.equal('Capacity reached');
+            assert.equal(res.json.firstCall.args[0].error, 'Capacity reached');
         });
 
         it('allows rsvp when limited event has free spots', async function () {
@@ -134,7 +134,7 @@ describe('RSVP Controllers', function () {
             await controllers.addRsvp(req, res);
 
             sinon.assert.calledOnce(service.addLabel);
-            res.json.firstCall.args[0].rsvp.should.be.true();
+            assert.equal(res.json.firstCall.args[0].rsvp, true);
         });
 
         it('responds with 500 when adding the label fails', async function () {
@@ -143,7 +143,7 @@ describe('RSVP Controllers', function () {
             await controllers.addRsvp(req, res);
 
             sinon.assert.calledOnceWithExactly(res.status, 500);
-            res.json.firstCall.args[0].error.should.equal('Server error');
+            assert.equal(res.json.firstCall.args[0].error, 'Server error');
         });
 
         it('still succeeds when feedback recording fails', async function () {
@@ -153,7 +153,7 @@ describe('RSVP Controllers', function () {
             await controllers.addRsvp(req, res);
 
             sinon.assert.neverCalledWith(res.status, 500);
-            res.json.firstCall.args[0].rsvp.should.be.true();
+            assert.equal(res.json.firstCall.args[0].rsvp, true);
         });
     });
 
@@ -167,12 +167,12 @@ describe('RSVP Controllers', function () {
 
             sinon.assert.calledOnceWithExactly(service.removeLabel, req.member, label);
             sinon.assert.calledOnce(feedbackAddStub);
-            feedbackAddStub.firstCall.args[0].should.match({
+            sinon.assert.match(feedbackAddStub.firstCall.args[0], {
                 member_id: 'member-1',
                 post_id: 'post-1',
                 score: constants.FEEDBACK_SCORE.RSVP_REMOVED
             });
-            res.json.firstCall.args[0].rsvp.should.be.false();
+            assert.equal(res.json.firstCall.args[0].rsvp, false);
         });
 
         it('is idempotent when member has no rsvp', async function () {
@@ -182,7 +182,7 @@ describe('RSVP Controllers', function () {
 
             sinon.assert.notCalled(service.removeLabel);
             sinon.assert.notCalled(feedbackAddStub);
-            res.json.firstCall.args[0].rsvp.should.be.false();
+            assert.equal(res.json.firstCall.args[0].rsvp, false);
         });
 
         it('responds with 500 when removal and re-add both fail', async function () {
@@ -192,7 +192,7 @@ describe('RSVP Controllers', function () {
             await controllers.removeRsvp(req, res);
 
             sinon.assert.calledOnceWithExactly(res.status, 500);
-            res.json.firstCall.args[0].error.should.equal('Server error');
+            assert.equal(res.json.firstCall.args[0].error, 'Server error');
         });
 
         it('still succeeds when feedback recording fails', async function () {
@@ -202,7 +202,7 @@ describe('RSVP Controllers', function () {
             await controllers.removeRsvp(req, res);
 
             sinon.assert.neverCalledWith(res.status, 500);
-            res.json.firstCall.args[0].rsvp.should.be.false();
+            assert.equal(res.json.firstCall.args[0].rsvp, false);
         });
     });
 });

@@ -41,7 +41,7 @@ describe('RSVP frontend routes', function () {
     let site;
     let memberCookie;
 
-    before(async function () {
+    beforeAll(async function () {
         membersAgent = await agentProvider.getMembersAPIAgent();
         await fixtureManager.init('members');
         site = supertest.agent(membersAgent.app);
